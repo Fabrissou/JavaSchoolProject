@@ -7,10 +7,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="core" />
-        <module name="cards" />
+        <module name="api" />
+        <module name="data" />
         <module name="post" />
-        <module name="JavaSchoolProject" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="cards" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>

@@ -6,14 +6,15 @@
 
     <groupId>org.example</groupId>
     <artifactId>JavaSchoolProject</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
-
     <modules>
-        <module>core</module>
-        <module>cards</module>
-        <module>post</module>
         <module>data</module>
+        <module>core</module>
+        <module>post</module>
+        <module>api</module>
     </modules>
+
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
