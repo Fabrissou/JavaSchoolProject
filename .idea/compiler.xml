@@ -6,6 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="core" />
+        <module name="cards" />
+        <module name="post" />
         <module name="JavaSchoolProject" />
       </profile>
     </annotationProcessing>
