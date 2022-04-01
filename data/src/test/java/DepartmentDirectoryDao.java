@@ -1,2 +1,5 @@
-package PACKAGE_NAME;public class DepartmentDirectoryDao {
+import org.junit.Test;
+
+public class DepartmentDirectoryDao {
+//    @Test
 }
