@@ -3,8 +3,26 @@ package model;
 import java.util.List;
 
 public class DepartmentCard {
-    String name, director, hierarchy;
+    String name, hierarchy;
+    long department_id;
+    EmployeeCard director;
     List<EmployeeCard> departmentEmployees;
+
+    public EmployeeCard getDirector() {
+        return director;
+    }
+
+    public void setDirector(EmployeeCard director) {
+        this.director = director;
+    }
+
+    public long getDepartment_id() {
+        return department_id;
+    }
+
+    public void setDepartment_id(long department_id) {
+        this.department_id = department_id;
+    }
 
     public String getName() {
         return name;
@@ -12,14 +30,6 @@ public class DepartmentCard {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getDirector() {
-        return director;
-    }
-
-    public void setDirector(String director) {
-        this.director = director;
     }
 
     public String getHierarchy() {
@@ -38,10 +48,25 @@ public class DepartmentCard {
         this.departmentEmployees = departmentEmployees;
     }
 
-    public DepartmentCard(String name, String director, String hierarchy, List<EmployeeCard> departmentEmployees) {
+    public DepartmentCard(String name, EmployeeCard director, String hierarchy, List<EmployeeCard> departmentEmployees) {
         this.name = name;
         this.director = director;
         this.hierarchy = hierarchy;
         this.departmentEmployees = departmentEmployees;
+    }
+
+    public DepartmentCard() {
+
+    }
+
+    @Override
+    public String toString() {
+        return "DepartmentCard{" +
+                "name='" + name + '\'' +
+                ", hierarchy='" + hierarchy + '\'' +
+                ", department_id=" + department_id +
+                ", director=" + director +
+                ", departmentEmployees=" + departmentEmployees +
+                '}';
     }
 }

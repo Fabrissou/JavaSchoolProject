@@ -8,11 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeDirectoryDao implements BaseDao<EmployeeCard> {
-
-    Connection getConnection() throws SQLException {
-        return PoolConnectionBuilder.getConnection();
-    }
-
     @Override
     public EmployeeCard get(long id) {
         EmployeeCard employee = null;
@@ -79,7 +74,17 @@ public class EmployeeDirectoryDao implements BaseDao<EmployeeCard> {
 
     @Override
     public void update(EmployeeCard employeeCard) {
-
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(
+                     "update employees set personal_info = ?, position = ?, department = ? where id = ?")) {
+            preparedStatement.setString(1, employeeCard.getPersonalData());
+            preparedStatement.setString(2, employeeCard.getPosition());
+            preparedStatement.setString(3, employeeCard.getDepartment());
+            preparedStatement.setLong(4, employeeCard.getId());
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -95,5 +100,30 @@ public class EmployeeDirectoryDao implements BaseDao<EmployeeCard> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<EmployeeCard> getEmployeeList(String department) {
+        List<EmployeeCard> employeeCardList = new ArrayList<>();
+
+        try (Connection connection = PoolConnectionBuilder.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("select * from employees where department = ?")) {
+            preparedStatement.setString(1, department);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                EmployeeCard employeeCard = new EmployeeCard(
+                        resultSet.getLong(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getString(4));
+
+                employeeCardList.add(employeeCard);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return employeeCardList;
     }
 }

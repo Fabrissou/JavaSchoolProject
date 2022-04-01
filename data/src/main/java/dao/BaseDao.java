@@ -1,5 +1,9 @@
 package dao;
 
+import conection.PoolConnectionBuilder;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 public interface BaseDao<T> {
@@ -13,4 +17,8 @@ public interface BaseDao<T> {
     void update(T t);
 
     void delete(T t);
+
+    default Connection getConnection() throws SQLException {
+        return PoolConnectionBuilder.getConnection();
+    }
 }

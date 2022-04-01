@@ -7,7 +7,7 @@
         <!-- Create tables -->
         <createTable tableName="employees">
             <column name="id" type="int">
-                <constraints primaryKey="true" nullable="false"/>
+                <constraints nullable="false"/>
             </column>
             <column name="personal_info" type="varchar(100)">
                 <constraints nullable="false"/>
@@ -15,12 +15,23 @@
             <column name="position" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
+            <column name="department" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
-        <addAutoIncrement columnName="id" tableName="employees" columnDataType="int" incrementBy="1" startWith="1"/>
 
         <createTable tableName="departments">
+            <column name="department_id" type="int">
+                <constraints unique="true" nullable="false"/>
+            </column>
             <column name="name" type="varchar(50)">
-                <constraints primaryKey="true" nullable="false" />
+                <constraints nullable="false"/>
+            </column>
+            <column name="director" type="int">
+                <constraints nullable="true"/>
+            </column>
+            <column name="hierarchy" type="varchar(50)">
+                <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
