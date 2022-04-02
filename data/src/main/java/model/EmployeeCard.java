@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 public class EmployeeCard {
     private long id;
     private String personalData, department, position;
@@ -61,5 +63,18 @@ public class EmployeeCard {
                 ", department='" + department + '\'' +
                 ", position='" + position + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EmployeeCard that = (EmployeeCard) o;
+        return id == that.id && Objects.equals(personalData, that.personalData) && Objects.equals(department, that.department) && Objects.equals(position, that.position);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, personalData, department, position);
     }
 }
