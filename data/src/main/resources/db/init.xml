@@ -5,34 +5,45 @@
 
     <changeSet id="create-tables" author="postgres">
         <!-- Create tables -->
+        <createTable tableName="positions">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="position" type="varchar(50)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+        </createTable>
+
         <createTable tableName="employees">
-            <column name="id" type="int">
-                <constraints nullable="false"/>
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="personal_info" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
-            <column name="position" type="varchar(50)">
-                <constraints nullable="false"/>
+            <column name="position_id" type="int">
+                <constraints nullable="true"/>
             </column>
-            <column name="department" type="varchar(50)">
-                <constraints nullable="false"/>
+            <column name="department_id" type="int">
+                <constraints nullable="true"/>
             </column>
         </createTable>
 
         <createTable tableName="departments">
-            <column name="department_id" type="int">
+
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="name" type="varchar(50)">
                 <constraints unique="true" nullable="false"/>
             </column>
-            <column name="name" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="director" type="int">
+
+            <column name="parent_id" type="int">
                 <constraints nullable="true"/>
             </column>
-            <column name="hierarchy" type="varchar(50)">
-                <constraints nullable="false"/>
-            </column>
+
         </createTable>
     </changeSet>
 </databaseChangeLog>

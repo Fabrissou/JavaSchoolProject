@@ -4,32 +4,17 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
 
     <changeSet id="update-tables" author="postgres">
-        <addAutoIncrement columnName="id"
-                          tableName="employees"
-                          columnDataType="int"
-                          incrementBy="1"
-                          startWith="1"/>
-        <addAutoIncrement columnName="department_id"
-                          tableName="departments"
-                          columnDataType="int"
-                          incrementBy="1"
-                          startWith="1"/>
-        <addPrimaryKey tableName="employees"
-                       columnNames="id"/>
-        <addPrimaryKey tableName="departments"
-                       columnNames="name"/>
-        <addForeignKeyConstraint baseTableName="departments"
-                                 baseColumnNames="director"
-                                 constraintName="director_id"
-                                 referencedTableName="employees"
-                                 referencedColumnNames="id"/>
         <addForeignKeyConstraint baseTableName="employees"
-                                 baseColumnNames="department"
-                                 constraintName="d"
+                                 baseColumnNames="position_id"
+                                 constraintName="employee_position"
+                                 referencedTableName="positions"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="employees"
+                                 baseColumnNames="department_id"
+                                 constraintName="employee_department"
                                  referencedTableName="departments"
-                                 referencedColumnNames="name"/>
-
-
+                                 referencedColumnNames="id"/>
     </changeSet>
 </databaseChangeLog>
 

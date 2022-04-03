@@ -1,72 +1,43 @@
 package model;
 
 import java.util.List;
+import java.util.Objects;
 
 public class DepartmentCard {
-    String name, hierarchy;
-    long department_id;
-    EmployeeCard director;
+    String name, path;
     List<EmployeeCard> departmentEmployees;
+    long parent_id;
 
-    public EmployeeCard getDirector() {
-        return director;
-    }
-
-    public void setDirector(EmployeeCard director) {
-        this.director = director;
-    }
-
-    public long getDepartment_id() {
-        return department_id;
-    }
-
-    public void setDepartment_id(long department_id) {
-        this.department_id = department_id;
-    }
-
+    public long getParent_id() { return parent_id; }
     public String getName() {
         return name;
+    }
+    public String getPath() {
+        return path;
+    }
+    public EmployeeCard getDirector() {
+        if (departmentEmployees != null) {
+            for (EmployeeCard employee: departmentEmployees) {
+                if ("director".equals(employee.getPosition())) {
+                    return employee;
+                }
+            }
+        }
+
+        return null;
+    }
+    public List<EmployeeCard> getDepartmentEmployees() {
+        return departmentEmployees;
     }
 
     public void setName(String name) {
         this.name = name;
     }
-
-    public String getHierarchy() {
-        return hierarchy;
+    public void setPath(String path) {
+        this.path = path;
     }
-
-    public void setHierarchy(String hierarchy) {
-        this.hierarchy = hierarchy;
-    }
-
-    public List<EmployeeCard> getDepartmentEmployees() {
-        return departmentEmployees;
-    }
-
+    public void setParent_id(long parent_id) {this.parent_id = parent_id; }
     public void setDepartmentEmployees(List<EmployeeCard> departmentEmployees) {
         this.departmentEmployees = departmentEmployees;
-    }
-
-    public DepartmentCard(String name, EmployeeCard director, String hierarchy, List<EmployeeCard> departmentEmployees) {
-        this.name = name;
-        this.director = director;
-        this.hierarchy = hierarchy;
-        this.departmentEmployees = departmentEmployees;
-    }
-
-    public DepartmentCard() {
-
-    }
-
-    @Override
-    public String toString() {
-        return "DepartmentCard{" +
-                "name='" + name + '\'' +
-                ", hierarchy='" + hierarchy + '\'' +
-                ", department_id=" + department_id +
-                ", director=" + director +
-                ", departmentEmployees=" + departmentEmployees +
-                '}';
     }
 }

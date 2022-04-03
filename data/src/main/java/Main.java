@@ -1,21 +1,21 @@
-import conection.DirectConnectionBuilder;
-import conection.PoolConnectionBuilder;
 import dao.DepartmentDirectoryDao;
-import dao.EmployeeDirectoryDao;
+import dao.EmployeeDao;
+import dao.PositionDao;
 import model.DepartmentCard;
 import model.EmployeeCard;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
-        DepartmentDirectoryDao dao = new DepartmentDirectoryDao();
-        DepartmentCard departmentCard = dao.get(13);
-        departmentCard.setName("newDepartment");
-        departmentCard.setHierarchy("three");
-        dao.save(departmentCard);
+        EmployeeCard d = new EmployeeCard();
+        EmployeeDao dao = new EmployeeDao();
+
+        d.setPersonalData("gdbgb");
+        d.setPosition("designer");
+        d.setDepartment("section7");
+
+        dao.save(d);
     }
 }
