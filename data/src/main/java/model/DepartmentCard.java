@@ -6,9 +6,10 @@ import java.util.Objects;
 public class DepartmentCard {
     String name, path;
     List<EmployeeCard> departmentEmployees;
-    long parent_id;
+    long id, parent_id;
 
     public long getParent_id() { return parent_id; }
+    public long getId() { return id; }
     public String getName() {
         return name;
     }
@@ -37,7 +38,6 @@ public class DepartmentCard {
         this.path = path;
     }
     public void setParent_id(long parent_id) {this.parent_id = parent_id; }
-    public void setDepartmentEmployees(List<EmployeeCard> departmentEmployees) {
-        this.departmentEmployees = departmentEmployees;
-    }
+    public void setId(long id) {this.id = id; }
+    public void setDepartmentEmployees(List<EmployeeCard> departmentEmployees) {this.departmentEmployees = departmentEmployees;}
 }

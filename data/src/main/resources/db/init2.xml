@@ -15,6 +15,12 @@
                                  constraintName="employee_department"
                                  referencedTableName="departments"
                                  referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="departments"
+                                 baseColumnNames="parent_id"
+                                 constraintName="parent"
+                                 referencedTableName="departments"
+                                 referencedColumnNames="id"/>
     </changeSet>
 </databaseChangeLog>
 
