@@ -88,25 +88,14 @@ public class DepartmentDirectoryDao implements BaseDao<DepartmentCard> {
         }
     }
 
-    private void deleteI(long departmentId) {
+    public void update(DepartmentCard departmentCard, long id) {
         try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(
-                     "select  * from departments where parent_id = ?")) {
-            preparedStatement.setLong(1, departmentId);
-            ResultSet children = preparedStatement.executeQuery();
+             PreparedStatement preparedStatement = connection.prepareStatement("update departments set name = ?, parent_id = ? where id = ?")) {
 
-            if (!(children.next())) {
-                PreparedStatement delete = connection.prepareStatement("delete from departments where id = ?");
-                delete.setLong(1, departmentId);
-                delete.execute();
-            } else {
-                do {
-                    deleteI(children.getLong(1));
-                } while (children.next());
-                PreparedStatement deleteCurrent = connection.prepareStatement("delete from departments where id = ?");
-                deleteCurrent.setLong(1, departmentId);
-                deleteCurrent.execute();
-            }
+            preparedStatement.setString(1, departmentCard.getName());
+            preparedStatement.setLong(2, departmentCard.getParent_id());
+            preparedStatement.setLong(3, id);
+            preparedStatement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -215,5 +204,21 @@ public class DepartmentDirectoryDao implements BaseDao<DepartmentCard> {
         }
 
         return departmentChildrenList;
+    }
+
+    public boolean doesDepartmentExist(long id) {
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("select * from departments where id = ?")) {
+            preparedStatement.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 }

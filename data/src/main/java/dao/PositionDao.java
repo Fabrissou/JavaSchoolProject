@@ -77,6 +77,22 @@ public class PositionDao implements BaseDao<String> {
         }
     }
 
+    public boolean doesPositionExist(long position_id) {
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("select * from positions where id = ?")) {
+            preparedStatement.setLong(1, position_id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
     public void update(String oldString, String newString) {
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement("update positions set position = ? where position = ?");) {

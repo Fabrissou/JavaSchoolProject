@@ -6,8 +6,8 @@ import java.util.List;
 
 public class CreateDepartmentRequest {
     String name, path;
-    List<CreateEmployeeRequest> departmentEmployees;
     long id, parent_id;
+    List<CreateEmployeeRequest> departmentEmployees;
 
     public long getParent_id() { return parent_id; }
     public long getId() { return id; }
@@ -17,17 +17,17 @@ public class CreateDepartmentRequest {
     public String getPath() {
         return path;
     }
-    public CreateEmployeeRequest getDirector() {
-        if (departmentEmployees != null) {
-            for (CreateEmployeeRequest employee: departmentEmployees) {
-                if ("director".equals(employee.getPosition())) {
-                    return employee;
-                }
-            }
-        }
-
-        return null;
-    }
+//    public CreateEmployeeRequest getDirector() {
+//        if (departmentEmployees != null) {
+//            for (CreateEmployeeRequest employee: departmentEmployees) {
+//                if ("director".equals(employee.getPosition())) {
+//                    return employee;
+//                }
+//            }
+//        }
+//
+//        return null;
+//    }
     public List<CreateEmployeeRequest> getDepartmentEmployees() {
         return departmentEmployees;
     }

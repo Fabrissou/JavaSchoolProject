@@ -79,6 +79,24 @@ public class EmployeeDao implements BaseDao<EmployeeCard> {
         }
     }
 
+    public void update(EmployeeCard employeeCard, long id) {
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("update employees set personal_info = ?, position_id = ?, department_id = ? where id = ?")) {
+
+            preparedStatement.setString(1, employeeCard.getPersonalData());
+            if (employeeCard.getPosition_id() == null) {
+                preparedStatement.setNull(2, Types.INTEGER);
+            } else {
+                preparedStatement.setLong(2, employeeCard.getPosition_id());
+            }
+            preparedStatement.setLong(3, employeeCard.getDepartment_id());
+            preparedStatement.setLong(4, id);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public List<EmployeeCard> getEmployeeList(long department_id) {
         List<EmployeeCard> employeeCardList = null;
 
@@ -128,6 +146,17 @@ public class EmployeeDao implements BaseDao<EmployeeCard> {
              PreparedStatement preparedStatement = connection.prepareStatement("update employees set department_id = ? where department_id = ?")) {
 
             preparedStatement.setNull(1, Types.INTEGER);
+            preparedStatement.setLong(2, departmentId);
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void changeDepartmentEmployees(long departmentId, long departmentParentId) {
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("update employees set department_id = ? where department_id = ?")) {
+            preparedStatement.setLong(1, departmentParentId);
             preparedStatement.setLong(2, departmentId);
             preparedStatement.execute();
         } catch (SQLException e) {

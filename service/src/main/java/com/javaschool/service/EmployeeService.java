@@ -4,8 +4,11 @@ import com.javaschool.dto.CreateEmployeeRequest;
 import dao.DepartmentDirectoryDao;
 import dao.EmployeeDao;
 import dao.PositionDao;
+import exceptions.NoSuchDepartmentException;
+import exceptions.NoSuchPositionException;
 import model.EmployeeCard;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,12 +28,36 @@ public class EmployeeService {
         return employeeRequest;
     }
 
-    public void save(CreateEmployeeRequest employeeRequest) {
-        employeeDao.save(requestToEmployee(employeeRequest));
+    public void save(CreateEmployeeRequest employeeRequest) throws NoSuchDepartmentException, NoSuchPositionException {
+        boolean departmentExist = departmentDao.doesDepartmentExist(employeeRequest.getDepartment_id());
+        boolean positionExist = positionDao.doesPositionExist(employeeRequest.getPosition_id());
+        Long department_id = employeeRequest.getDepartment_id();
+
+        if (department_id == null) { throw new NoSuchDepartmentException(); }
+        if (departmentExist && positionExist) {
+            employeeDao.save(requestToEmployee(employeeRequest));
+        } else if (!departmentExist){
+            throw new NoSuchDepartmentException();
+        } else {
+            throw new NoSuchPositionException();
+        }
     }
 
     public void delete(CreateEmployeeRequest employeeRequest) {
         employeeDao.delete(requestToEmployee(employeeRequest));
+    }
+
+    public void update(CreateEmployeeRequest employeeRequest, long id) throws NoSuchDepartmentException, NoSuchPositionException {
+        boolean departmentExist = departmentDao.doesDepartmentExist(employeeRequest.getDepartment_id());
+        boolean positionExist = positionDao.doesPositionExist(employeeRequest.getPosition_id());
+
+        if (departmentExist && positionExist) {
+            employeeDao.update(requestToEmployee(employeeRequest), id);
+        } else if (!departmentExist) {
+            throw new NoSuchDepartmentException();
+        } else {
+            throw new NoSuchPositionException();
+        }
     }
 
     public List<CreateEmployeeRequest> getCreateEmployeeRequestList(long departmentId) {

@@ -4,10 +4,10 @@ import com.javaschool.dto.CreateDepartmentRequest;
 import com.javaschool.dto.CreateEmployeeRequest;
 import dao.DepartmentDirectoryDao;
 import dao.EmployeeDao;
+import exceptions.NoSuchDepartmentException;
+import exceptions.NoSuchPositionException;
 import model.DepartmentCard;
-import model.EmployeeCard;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DepartmentService {
@@ -27,27 +27,42 @@ public class DepartmentService {
         return departmentRequest;
     }
 
-    public void save(CreateDepartmentRequest departmentRequest) {
+    public void save(CreateDepartmentRequest departmentRequest) throws NoSuchDepartmentException, NoSuchPositionException {
         departmentDao.save(requestToDepartment(departmentRequest));
+        for (CreateEmployeeRequest employeeRequest: departmentRequest.getDepartmentEmployees()) {
+            employeeRequest.setDepartment_id(departmentDao.getDepartmentId(departmentRequest.getName()));
+            employeeService.save(employeeRequest);
+
+        }
     }
 
-    public void delete(CreateDepartmentRequest departmentRequest) {
+    public void delete(CreateDepartmentRequest departmentRequest) throws NoSuchDepartmentException {
+        if (!(departmentDao.doesDepartmentExist(departmentRequest.getId()))) {
+            throw new NoSuchDepartmentException();
+        }
         List<Long> childrenIdList = departmentDao.getChildrenId(departmentRequest.getId());
 
         if (childrenIdList.isEmpty()) {
-            employeeDao.clearDepartmentEmployees(departmentRequest.getId());
+            employeeDao.changeDepartmentEmployees(departmentRequest.getId(), departmentRequest.getParent_id());
             departmentDao.delete(requestToDepartment(departmentRequest));
         } else {
             for (Long i: childrenIdList) {
-                CreateDepartmentRequest department = new CreateDepartmentRequest();
-                department.setId(i);
+                CreateDepartmentRequest department = get(i);
                 delete(department);
             }
-            employeeDao.clearDepartmentEmployees(departmentRequest.getId());
+            employeeDao.changeDepartmentEmployees(departmentRequest.getId(), departmentRequest.getParent_id());
             departmentDao.delete(requestToDepartment(departmentRequest));
         }
     }
 
+    public void update(CreateDepartmentRequest departmentRequest, long id) throws NoSuchDepartmentException {
+        if (departmentDao.doesDepartmentExist(id) && departmentDao.doesDepartmentExist(departmentRequest.getParent_id())) {
+            departmentDao.update(requestToDepartment(departmentRequest), id);
+        } else {
+            throw new NoSuchDepartmentException();
+        }
+
+    }
 
 
     private CreateDepartmentRequest departmentToRequest(DepartmentCard departmentCard) {
@@ -61,7 +76,6 @@ public class DepartmentService {
 
         return departmentRequest;
     }
-
     private DepartmentCard requestToDepartment(CreateDepartmentRequest departmentRequest) {
         DepartmentCard departmentCard = new DepartmentCard();
 
