@@ -10,11 +10,11 @@
 
     <servlet>
         <servlet-name>DepartmentServlet</servlet-name>
-        <servlet-class>com.javaschool.web.DepartmentServlet</servlet-class>
+        <servlet-class>org.javaschool.servlet.DepartmentServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>EmployeeServlet</servlet-name>
-        <servlet-class>com.javaschool.web.EmployeeServlet</servlet-class>
+        <servlet-class>org.javaschool.servlet.EmployeeServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>

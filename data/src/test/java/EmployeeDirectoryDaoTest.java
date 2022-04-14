@@ -1,4 +1,4 @@
-import conection.PoolConnectionBuilder;
+import org.javaschool.data.old.conection.PoolConnectionBuilder;
 import org.junit.Test;
 
 import java.sql.*;
