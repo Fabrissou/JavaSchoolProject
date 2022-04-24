@@ -7,11 +7,11 @@ public interface PositionService {
 
     PositionDto get(Long id);
 
-    void save(PositionDto positionDto);
+    boolean save(PositionDto positionDto);
 
-    void delete(Long id);
+    boolean delete(Long id);
 
-    void update(PositionDto positionDto, Long id);
+    boolean update(PositionDto positionDto, Long id);
 
     Position mapperPosition(PositionDto positionDto);
 

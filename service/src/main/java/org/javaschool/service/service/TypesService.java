@@ -7,11 +7,11 @@ public interface TypesService {
 
     TypeDto get(Long id);
 
-    void save(TypeDto typeDto);
+    boolean save(TypeDto typeDto);
 
-    void delete(Long id);
+    boolean delete(Long id);
 
-    void update(TypeDto typeDto, Long id);
+    boolean update(TypeDto typeDto, Long id);
 
     Type mapperType(TypeDto typeDto);
 

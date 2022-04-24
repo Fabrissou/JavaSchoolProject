@@ -10,11 +10,13 @@ public interface EmployeesService {
 
     EmployeeDto get(Long id);
 
-    void save(EmployeeDto employeeDto);
+    boolean save(EmployeeDto employeeDto);
 
-    void delete(Long id);
+    boolean moderatorDelete(Long id);
 
-    void update(EmployeeDto employeeDto, Long id);
+    boolean adminDelete(Long id);
+
+    boolean update(EmployeeDto employeeDto, Long id);
 
     Employee mapperEmployee(EmployeeDto employeeDto);
 

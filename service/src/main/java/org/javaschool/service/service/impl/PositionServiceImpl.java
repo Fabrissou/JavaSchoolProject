@@ -31,26 +31,35 @@ public class PositionServiceImpl implements PositionService {
 
     @Transactional
     @Override
-    public void save(PositionDto positionDto) {
+    public boolean save(PositionDto positionDto) {
         if (!positionsRepository.existsById(positionDto.getId())) {
             positionsRepository.save(mapperPosition(positionDto));
+            return true;
+        } else {
+            return false;
         }
     }
 
     @Transactional
     @Override
-    public void delete(Long id) {
+    public boolean delete(Long id) {
         if (positionsRepository.existsById(id)) {
             positionsRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
         }
     }
 
     @Transactional
     @Override
-    public void update(PositionDto positionDto, Long id) {
+    public boolean update(PositionDto positionDto, Long id) {
         if (positionsRepository.existsById(id)) {
             positionDto.setId(id);
             positionsRepository.save(mapperPosition(positionDto));
+            return true;
+        } else {
+            return false;
         }
     }
 

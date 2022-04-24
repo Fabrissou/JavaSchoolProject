@@ -3,24 +3,44 @@ package org.javaschool.service.service.impl;
 import org.javaschool.data.model.department.Department;
 import org.javaschool.data.model.employee.Employee;
 import org.javaschool.data.model.employee.Position;
+import org.javaschool.data.model.role.User;
+import org.javaschool.data.repository.DepartmentsRepository;
+import org.javaschool.data.repository.PositionsRepository;
+import org.javaschool.data.repository.UserRepository;
 import org.javaschool.service.service.DepartmentsService;
 import org.javaschool.service.service.EmployeesService;
 import org.javaschool.data.repository.EmployeesRepository;
 import org.javaschool.service.service.PositionService;
 import org.javaschool.service.service.dto.EmployeeDto;
+import org.javaschool.service.service.mail.NotificationGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
 public class EmployeesServiceImpl implements EmployeesService {
+    @Autowired
+    private NotificationGenerator notificationGenerator;
 
     @Autowired
     private EmployeesRepository employeesRepository;
+
+    @Autowired
+    private PositionsRepository positionsRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private DepartmentsRepository departmentsRepository;
+
+    @Autowired
+    private DepartmentsService departmentsService;
 
     @Transactional
     @Override
@@ -37,27 +57,110 @@ public class EmployeesServiceImpl implements EmployeesService {
 
     @Transactional
     @Override
-    public void save(EmployeeDto employeeDto) {
-        if (!employeesRepository.existsById(employeeDto.getId())) {
-            employeesRepository.save(mapperEmployee(employeeDto));
+    public boolean save(EmployeeDto employeeDto) {
+        if ((!employeesRepository.existsById(employeeDto.getId())) &&
+                (positionsRepository.existsById(employeeDto.getPositionId())) &&
+                (departmentsRepository.existsById(employeeDto.getDepartmentId())) ) {
+
+            Employee employeeToSave = mapperEmployee(employeeDto);
+
+            if (Objects.equals(positionsRepository.findById(employeeDto.getPositionId()).get().getEmployeePosition(), "director")) {
+                if (departmentsService.checkDirector(employeeDto.getDepartmentId())) {
+                    return false;
+                } else {
+                    employeesRepository.save(employeeToSave);
+                    Employee director = employeesRepository.findByDepartmentIdAndPositionId(employeeToSave.getDepartmentId(), employeeToSave.getPositionId());
+                    userRepository.save(createDefaultModerator(director));
+                    notificationGenerator.createEmployeeNotification(departmentsRepository.findById(employeeToSave.getDepartmentId().getId()).get());
+                    return true;
+                }
+            }
+            notificationGenerator.createEmployeeNotification(departmentsRepository.findById(employeeToSave.getDepartmentId().getId()).get());
+            employeesRepository.save(employeeToSave);
+            return true;
         }
+
+        return false;
     }
 
     @Transactional
     @Override
-    public void delete(Long id) {
+    public boolean moderatorDelete(Long id) {
+
         if (employeesRepository.existsById(id)) {
+            User userToDelete = userRepository.findByEmployeeId(employeesRepository.findById(id).get());
+            System.out.println(userToDelete);
+            if (userToDelete != null) {
+                if ("ROLE_USER".equals(userToDelete.getRole())) {
+                    userRepository.delete(userToDelete);
+                    employeesRepository.deleteById(id);
+                    notificationGenerator.deleteEmployeeNotification(id);
+                    return true;
+                }
+            } else {
+                employeesRepository.deleteById(id);
+                notificationGenerator.deleteEmployeeNotification(id);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    @Transactional
+    @Override
+    public boolean adminDelete(Long id) {
+        if (employeesRepository.existsById(id)) {
+            User userToDelete = userRepository.findByEmployeeId(employeesRepository.findById(id).get());
+            if (userToDelete != null) {
+                userRepository.delete(userToDelete);
+            }
             employeesRepository.deleteById(id);
+            notificationGenerator.deleteEmployeeNotification(id);
+            return true;
         }
+        return false;
     }
 
     @Transactional
     @Override
-    public void update(EmployeeDto employeeDto, Long id) {
-        if (employeesRepository.existsById(id)) {
+    public boolean update(EmployeeDto employeeDto, Long id) {
+        if (employeesRepository.existsById(id) &&
+                departmentsRepository.existsById(employeeDto.getDepartmentId()) &&
+                positionsRepository.existsById(employeeDto.getPositionId())) {
             employeeDto.setId(id);
+            Employee employeeToUpdate = employeesRepository.findById(id).get();
+            Employee updatedEmployee = mapperEmployee(employeeDto);
+
+
+            if (Objects.equals(positionsRepository.findById(employeeDto.getPositionId()).get().getEmployeePosition(), "director")) {
+                if (employeeToUpdate.getPositionId().getEmployeePosition().equals("director")) {
+                    User moderatorToUpdate = userRepository.findByUsername(employeeToUpdate.getEmployeeInfo());
+                    moderatorToUpdate.setUsername(updatedEmployee.getEmployeeInfo());
+                    userRepository.save(moderatorToUpdate);
+                    employeesRepository.save(updatedEmployee);
+                    notificationGenerator.updateEmployeeNotification(id);
+                    return true;
+                }
+
+                if (departmentsService.checkDirector(employeeToUpdate.getDepartmentId().getId())) {
+                    return false;
+                } else {
+                    employeesRepository.save(updatedEmployee);
+                    Employee director = employeesRepository.findByDepartmentIdAndPositionId(updatedEmployee.getDepartmentId(), updatedEmployee.getPositionId());
+                    userRepository.save(createDefaultModerator(director));
+                    notificationGenerator.updateEmployeeNotification(id);
+                    return true;
+                }
+            }
+
+
             employeesRepository.save(mapperEmployee(employeeDto));
+            notificationGenerator.updateEmployeeNotification(id);
+            return true;
         }
+
+        return false;
     }
 
     @Transactional
@@ -113,5 +216,15 @@ public class EmployeesServiceImpl implements EmployeesService {
         }
 
         return employeeDto;
+    }
+
+    @Transactional
+    User createDefaultModerator(Employee director) {
+        User defaultModerator = new User();
+        defaultModerator.setEmployeeId(director);
+        defaultModerator.setRole("ROLE_MODERATOR");
+        defaultModerator.setUsername(director.getEmployeeInfo());
+        defaultModerator.setPassword("$2a$10$MsmL9LkIvVlxXIPOZhJJiu.3g4b/EdKmxdWt6DTT47mkTn56EE/6.");
+        return defaultModerator;
     }
 }

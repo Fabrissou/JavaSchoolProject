@@ -1,11 +1,10 @@
-import org.javaschool.data.old.conection.PoolConnectionBuilder;
 import org.junit.Test;
 
 import java.sql.*;
 
 public class EmployeeDirectoryDaoTest {
 //    EmployeeDirectoryDao directoryDao = new EmployeeDirectoryDao();
-    Connection connection = PoolConnectionBuilder.getConnection();
+//    Connection connection = PoolConnectionBuilder.getConnection();
 
     @Test
     public void get() throws SQLException {

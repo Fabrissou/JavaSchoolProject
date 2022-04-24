@@ -1,6 +1,8 @@
 package org.javaschool.data.model.role;
 
 import lombok.Data;
+import org.javaschool.data.model.department.Department;
+import org.javaschool.data.model.employee.Employee;
 
 import javax.persistence.*;
 
@@ -9,9 +11,6 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Data
 @Entity
 @Table(name = "users")
-@DiscriminatorColumn(name = "type")
-@DiscriminatorValue("user")
-@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
 
     @Id
@@ -23,4 +22,11 @@ public class User {
 
     @Column(name = "password", nullable = false)
     private String password;
+
+    @Column(name = "role", nullable = false)
+    private String role;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_id", nullable = true)
+    private Employee employeeId;
 }

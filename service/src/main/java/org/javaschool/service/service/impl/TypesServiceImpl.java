@@ -32,26 +32,35 @@ public class TypesServiceImpl implements TypesService {
 
     @Transactional
     @Override
-    public void save(TypeDto typeDto) {
+    public boolean save(TypeDto typeDto) {
         if (!typesRepository.existsById(typeDto.getId())) {
             typesRepository.save(mapperType(typeDto));
+            return true;
+        } else {
+            return false;
         }
     }
 
     @Transactional
     @Override
-    public void delete(Long id) {
+    public boolean delete(Long id) {
         if (typesRepository.existsById(id)) {
             typesRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
         }
     }
 
     @Transactional
     @Override
-    public void update(TypeDto typeDto, Long id) {
+    public boolean update(TypeDto typeDto, Long id) {
         if (typesRepository.existsById(id)) {
             typeDto.setId(id);
             typesRepository.save(mapperType(typeDto));
+            return true;
+        } else {
+            return false;
         }
     }
 

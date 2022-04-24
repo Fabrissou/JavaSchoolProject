@@ -3,6 +3,7 @@ package org.javaschool.data.repository;
 import liquibase.pro.packaged.L;
 import org.javaschool.data.model.department.Department;
 import org.javaschool.data.model.employee.Employee;
+import org.javaschool.data.model.employee.Position;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -14,6 +15,10 @@ import java.util.List;
 public interface EmployeesRepository extends CrudRepository<Employee, Long> {
     List<Employee> findAllByDepartmentId(Department departmentId);
 
+    Employee findByDepartmentIdAndPositionId(Department departmentId, Position positionId);
+
+    @Transactional
+    int countAllByDepartmentIdAndPositionId(Department departmentId, Position positionId);
 
     @Transactional
     @Modifying

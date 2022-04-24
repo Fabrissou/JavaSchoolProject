@@ -10,11 +10,8 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>data</module>
-        <module>servlet</module>
-        <module>post</module>
-        <module>api</module>
+        <module>rest</module>
         <module>service</module>
-        <module>spring</module>
     </modules>
 
     <dependencies>
@@ -48,12 +45,6 @@
             <artifactId>javax.annotation-api</artifactId>
             <version>1.3.2</version>
         </dependency>
-
-<!--        <dependency>-->
-<!--            <groupId>org.javaschool</groupId>-->
-<!--            <artifactId>service</artifactId>-->
-<!--            <version>1.0-SNAPSHOT</version>-->
-<!--        </dependency>-->
 
     </dependencies>
 

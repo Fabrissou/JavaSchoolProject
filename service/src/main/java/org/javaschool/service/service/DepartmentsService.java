@@ -3,19 +3,26 @@ package org.javaschool.service.service;
 
 import org.javaschool.data.model.department.Department;
 import org.javaschool.service.service.dto.DepartmentDto;
-import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Set;
 
 public interface DepartmentsService {
 
     DepartmentDto get(Long id);
 
-    void save(DepartmentDto departmentDto);
+    boolean save(DepartmentDto departmentDto);
 
-    void delete(Long id);
+    boolean delete(Long id);
 
-    void update(DepartmentDto departmentDto, Long id);
+    boolean update(DepartmentDto departmentDto, Long id);
 
     Department mapperDepartment(DepartmentDto departmentDto);
 
     DepartmentDto mapperDepartmentDto(Department department);
+
+    void addHierarchyToSet(Set<Long> set, Department department);
+
+    public boolean checkDirector(Long departmentId);
+
 }
