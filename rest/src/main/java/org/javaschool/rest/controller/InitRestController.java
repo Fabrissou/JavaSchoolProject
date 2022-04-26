@@ -5,10 +5,7 @@ import liquibase.pro.packaged.A;
 import org.javaschool.data.model.role.User;
 import org.javaschool.data.repository.UserRepository;
 import org.javaschool.service.service.UserService;
-import org.javaschool.service.service.dto.DepartmentDto;
-import org.javaschool.service.service.dto.EmployeeDto;
-import org.javaschool.service.service.dto.PositionDto;
-import org.javaschool.service.service.dto.TypeDto;
+import org.javaschool.service.service.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -40,6 +37,9 @@ public class InitRestController {
     @Autowired
     private EmployeeRestController employeeRestController;
 
+    @Autowired
+    private PostRestController postRestController;
+
     @PostMapping(value = "{type}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     @ResponseBody
     public ResponseEntity<String> initTypeOrPose(@PathVariable("type") String type, @RequestBody String path) {
@@ -53,6 +53,10 @@ public class InitRestController {
             ObjectMapper mapper = new ObjectMapper();
 
             if (type.equals("position")) {
+                PostDto postDto = new PostDto();
+                postDto.setId(1L);
+                postDto.setPost("something@mail.ru");
+                postRestController.createPost(postDto);
                 List<PositionDto> positionDtos = Arrays.asList(mapper.readValue(file, PositionDto[].class));
 
                 if (positionDtos != null) {
