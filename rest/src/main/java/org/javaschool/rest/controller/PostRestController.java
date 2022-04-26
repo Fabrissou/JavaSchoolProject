@@ -1,59 +1,43 @@
 package org.javaschool.rest.controller;
 
-import org.javaschool.service.service.TypesService;
-import org.javaschool.service.service.dto.EmployeeDto;
-import org.javaschool.service.service.dto.PositionDto;
-import org.javaschool.service.service.dto.TypeDto;
+import org.javaschool.service.service.PostService;
+import org.javaschool.service.service.dto.PostDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("type")
-public class TypeRestController {
+@RequestMapping("post")
+public class PostRestController {
 
     @Autowired
-    private TypesService typeService;
+    private PostService postService;
 
     @GetMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<TypeDto> getType(@PathVariable("id") Long typeId) {
-        if (typeId == null) {
+    public ResponseEntity<PostDto> getPost(@PathVariable("id") Long postId) {
+        if (postId == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        TypeDto typeDto = this.typeService.get(typeId);
+        PostDto postDto = this.postService.get(postId);
 
-        if (typeDto == null) {
+        if (postDto == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        return ResponseEntity.ok(typeDto);
-    }
-
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public ResponseEntity<List<TypeDto>> getAll() {
-        List<TypeDto> typeDtos = typeService.getAll();
-
-        if (typeDtos == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        return ResponseEntity.ok(typeDtos);
+        return ResponseEntity.ok(postDto);
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<TypeDto> createType(@RequestBody TypeDto typeDto) {
-        if (typeDto == null) {
+    public ResponseEntity<PostDto> createPost(@RequestBody PostDto postDto) {
+        if (postDto == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        if (this.typeService.save(typeDto)) {
+        if (this.postService.save(postDto)) {
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -61,12 +45,12 @@ public class TypeRestController {
     }
 
     @PutMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<TypeDto> updateType(@PathVariable("id") Long typeId, @RequestBody TypeDto typeDto) {
-        if (typeDto == null) {
+    public ResponseEntity<PostDto> updatePost(@PathVariable("id") Long postId, @RequestBody PostDto postDto) {
+        if (postDto == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        if (typeService.update(typeDto, typeId)) {
+        if (postService.update(postDto, postId)) {
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -74,8 +58,8 @@ public class TypeRestController {
     }
 
     @DeleteMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<TypeDto> deleteType(@PathVariable("id") Long typeId) {
-        if (typeService.delete(typeId)) {
+    public ResponseEntity<PostDto> deletePost(@PathVariable("id") Long postId) {
+        if (postService.delete(postId)) {
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

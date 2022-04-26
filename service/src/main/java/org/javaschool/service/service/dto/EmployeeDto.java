@@ -8,4 +8,6 @@ public class EmployeeDto {
     private String employeeInfo;
     private Long positionId;
     private Long departmentId;
+
+    private String position;
 }

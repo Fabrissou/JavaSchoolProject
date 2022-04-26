@@ -17,9 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class DepartmentsServiceImpl implements DepartmentsService {
@@ -58,10 +56,16 @@ public class DepartmentsServiceImpl implements DepartmentsService {
     @Override
     public boolean save(DepartmentDto departmentDto) {
         if ((!departmentsRepository.existsById(departmentDto.getId())) &&
-                typesRepository.existsById(departmentDto.getDepartmentType()) &&
-                departmentsRepository.existsById(departmentDto.getParentDepartment())) {
+                typesRepository.existsById(departmentDto.getDepartmentTypeId()) &&
+                (departmentDto.getParentDepartmentId() == 0 || departmentsRepository.existsById(departmentDto.getParentDepartmentId()))) {
             departmentsRepository.save(mapperDepartment(departmentDto));
-            notificationGenerator.createDepartmentNotification(typesRepository.findById(departmentDto.getDepartmentType()).get().getDepartmentType(), departmentDto.getDepartmentName());
+            List<EmployeeDto> employeeDtos = departmentDto.getEmployeeDtoList();
+
+            if (employeeDtos != null) {
+                employeeDtos.forEach(employeeDto -> employeesService.save(employeeDto));
+            }
+
+            notificationGenerator.createDepartmentNotification(typesRepository.findById(departmentDto.getDepartmentTypeId()).get().getDepartmentType(), departmentDto.getDepartmentName());
             return true;
         } else {
             return false;
@@ -95,8 +99,8 @@ public class DepartmentsServiceImpl implements DepartmentsService {
     @Override
     public boolean update(DepartmentDto departmentDto, Long id) {
         if (departmentsRepository.existsById(id) &&
-                departmentsRepository.existsById(departmentDto.getParentDepartment()) &&
-                typesRepository.existsById(departmentDto.getDepartmentType())) {
+                departmentsRepository.existsById(departmentDto.getParentDepartmentId()) &&
+                typesRepository.existsById(departmentDto.getDepartmentTypeId())) {
             departmentDto.setId(id);
             departmentsRepository.save(mapperDepartment(departmentDto));
             notificationGenerator.updateDepartmentNotification(id);
@@ -115,8 +119,12 @@ public class DepartmentsServiceImpl implements DepartmentsService {
             department = new Department();
             Department parentDepartment = new Department();
             Type departmentType = new Type();
-            parentDepartment.setId(departmentDto.getParentDepartment());
-            departmentType.setId(departmentDto.getDepartmentType());
+            if (departmentDto.getParentDepartmentId() == 0) {
+                parentDepartment = null;
+            } else {
+                parentDepartment.setId(departmentDto.getParentDepartmentId());
+            }
+            departmentType.setId(departmentDto.getDepartmentTypeId());
 
             department.setId(departmentDto.getId());
             department.setDepartmentName(departmentDto.getDepartmentName());
@@ -136,12 +144,15 @@ public class DepartmentsServiceImpl implements DepartmentsService {
             departmentDto = new DepartmentDto();
             departmentDto.setId(department.getId());
             departmentDto.setDepartmentName(department.getDepartmentName());
-            departmentDto.setDepartmentType(department.getDepartmentType().getId());
+            departmentDto.setDepartmentTypeId(department.getDepartmentType().getId());
+            departmentDto.setDepartmentType(department.getDepartmentType().getDepartmentType());
+
             if (department.getParentDepartment() == null) {
-                departmentDto.setParentDepartment(null);
+                departmentDto.setParentDepartmentId(null);
             } else {
-                departmentDto.setParentDepartment(department.getParentDepartment().getId());
+                departmentDto.setParentDepartmentId(department.getParentDepartment().getId());
             }
+
             departmentDto.setEmployeeDtoList(employeesService.getAllEmployeesInDepartment(department));
         }
 
@@ -166,5 +177,27 @@ public class DepartmentsServiceImpl implements DepartmentsService {
         Department department = departmentsRepository.findById(departmentId).get();
 
         return employeesRepository.countAllByDepartmentIdAndPositionId(department, director) > 0;
+    }
+
+    @Transactional
+    @Override
+    public List<DepartmentDto> getAll() {
+        List<DepartmentDto> departmentDtos = new ArrayList<>();
+
+        departmentsRepository.findAll().forEach(department -> {
+            departmentDtos.add(mapperDepartmentDto(department));
+        });
+
+        departmentDtos.sort(new SortByDepartmentType());
+
+        return departmentDtos;
+    }
+
+    class SortByDepartmentType implements Comparator<DepartmentDto> {
+        public int compare(DepartmentDto a, DepartmentDto b) {
+            if ( a.getDepartmentTypeId() < b.getDepartmentTypeId() ) return -1;
+            else if ( a.getDepartmentTypeId() == b.getDepartmentTypeId() ) return 0;
+            else return 1;
+        }
     }
 }

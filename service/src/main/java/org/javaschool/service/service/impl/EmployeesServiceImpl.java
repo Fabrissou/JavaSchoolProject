@@ -212,6 +212,7 @@ public class EmployeesServiceImpl implements EmployeesService {
             employeeDto.setId(employee.getId());
             employeeDto.setEmployeeInfo(employee.getEmployeeInfo());
             employeeDto.setPositionId(employee.getPositionId().getId());
+            employeeDto.setPosition(employee.getPositionId().getEmployeePosition());
             employeeDto.setDepartmentId(employee.getDepartmentId().getId());
         }
 

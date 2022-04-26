@@ -1,11 +1,8 @@
 package org.javaschool.service.service.mail;
 
 import org.javaschool.data.model.department.Department;
-import org.javaschool.data.model.employee.Employee;
-import org.javaschool.service.service.dto.DepartmentDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class NotificationGenerator {

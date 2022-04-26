@@ -4,10 +4,13 @@ import org.javaschool.data.model.employee.Position;
 import org.javaschool.service.service.PositionService;
 import org.javaschool.data.repository.PositionsRepository;
 import org.javaschool.service.service.dto.PositionDto;
+import org.javaschool.service.service.dto.TypeDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,6 +30,18 @@ public class PositionServiceImpl implements PositionService {
         }
 
         return mapperPositionDto(position);
+    }
+
+    @Transactional
+    @Override
+    public List<PositionDto> getAll() {
+        List<PositionDto> positionDtoList = new ArrayList<>();
+
+        positionsRepository.findAll().forEach(position -> {
+            positionDtoList.add(mapperPositionDto(position));
+        });
+
+        return positionDtoList;
     }
 
     @Transactional

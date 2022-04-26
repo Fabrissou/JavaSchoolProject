@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @RequestMapping("department")
@@ -39,6 +40,18 @@ public class DepartmentRestController {
         }
 
         return ResponseEntity.ok(departmentDto);
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<List<DepartmentDto>> getAll() {
+        List<DepartmentDto> departmentDtos = departmentsService.getAll();
+
+        if (departmentDtos == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return ResponseEntity.ok(departmentDtos);
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)

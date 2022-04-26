@@ -1,12 +1,16 @@
 package org.javaschool.rest.controller;
 
+import org.javaschool.data.model.employee.Position;
 import org.javaschool.service.service.PositionService;
+import org.javaschool.service.service.dto.DepartmentDto;
 import org.javaschool.service.service.dto.PositionDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("position")
@@ -29,6 +33,18 @@ public class PositionRestController {
         }
 
         return ResponseEntity.ok(positionDto);
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<List<PositionDto>> getAll() {
+        List<PositionDto> positionDtos = positionService.getAll();
+
+        if (positionDtos == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return ResponseEntity.ok(positionDtos);
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)

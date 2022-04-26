@@ -8,7 +8,9 @@ import java.util.List;
 public class DepartmentDto {
     private Long id;
     private String departmentName;
-    private Long parentDepartment;
-    private Long departmentType;
+    private Long parentDepartmentId;
+    private Long departmentTypeId;
     private List<EmployeeDto> employeeDtoList;
+
+    private String departmentType;
 }

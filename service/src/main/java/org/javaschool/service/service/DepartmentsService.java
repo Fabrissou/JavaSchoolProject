@@ -5,11 +5,14 @@ import org.javaschool.data.model.department.Department;
 import org.javaschool.service.service.dto.DepartmentDto;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Set;
 
 public interface DepartmentsService {
 
     DepartmentDto get(Long id);
+
+    List<DepartmentDto> getAll();
 
     boolean save(DepartmentDto departmentDto);
 
