@@ -99,7 +99,7 @@ public class DepartmentsServiceImpl implements DepartmentsService {
     @Override
     public boolean update(DepartmentDto departmentDto, Long id) {
         if (departmentsRepository.existsById(id) &&
-                departmentsRepository.existsById(departmentDto.getParentDepartmentId()) &&
+                (departmentDto.getParentDepartmentId() == 0 || departmentsRepository.existsById(departmentDto.getParentDepartmentId())) &&
                 typesRepository.existsById(departmentDto.getDepartmentTypeId())) {
             departmentDto.setId(id);
             departmentsRepository.save(mapperDepartment(departmentDto));
@@ -119,7 +119,7 @@ public class DepartmentsServiceImpl implements DepartmentsService {
             department = new Department();
             Department parentDepartment = new Department();
             Type departmentType = new Type();
-            if (departmentDto.getParentDepartmentId() == 0) {
+            if (departmentDto.getParentDepartmentId() == null || departmentDto.getParentDepartmentId() == 0) {
                 parentDepartment = null;
             } else {
                 parentDepartment.setId(departmentDto.getParentDepartmentId());
