@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "departmentType": "organisation"
+  },
+  {
+    "id": 2,
+    "departmentType": "department"
+  },
+  {
+    "id": 3,
+    "departmentType": "division"
+  },
+  {
+    "id": 4,
+    "departmentType": "section"
+  }
+]

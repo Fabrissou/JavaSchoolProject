@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "employeePosition": "director"
+  },
+  {
+    "id": 2,
+    "employeePosition": "designer"
+  },
+  {
+    "id": 3,
+    "employeePosition": "analyst"
+  },
+  {
+    "id": 4,
+    "employeePosition": "manager"
+  },
+  {
+    "id": 5,
+    "employeePosition": "developer"
+  }
+]

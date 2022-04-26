@@ -1,0 +1,662 @@
+[
+  {
+    "id": 1,
+    "departmentName": "organisation",
+    "parentDepartmentId": 0,
+    "departmentTypeId": 1,
+    "employeeDtoList": [
+      {
+        "id": 4,
+        "employeeInfo": "Christian Grishanin",
+        "positionId": 2,
+        "departmentId": 1,
+        "position": "designer"
+      },
+      {
+        "id": 12,
+        "employeeInfo": "Ahmed Davids",
+        "positionId": 5,
+        "departmentId": 1,
+        "position": "developer"
+      },
+      {
+        "id": 43,
+        "employeeInfo": "Helene McQuirter",
+        "positionId": 1,
+        "departmentId": 1,
+        "position": "director"
+      },
+      {
+        "id": 44,
+        "employeeInfo": "Brandon Mulroy",
+        "positionId": 2,
+        "departmentId": 1,
+        "position": "designer"
+      },
+      {
+        "id": 49,
+        "employeeInfo": "Cullin Pleven",
+        "positionId": 3,
+        "departmentId": 1,
+        "position": "analyst"
+      },
+      {
+        "id": 72,
+        "employeeInfo": "Bunnie Hempshall",
+        "positionId": 2,
+        "departmentId": 1,
+        "position": "designer"
+      }
+    ],
+    "departmentType": "organisation"
+  },
+  {
+    "id": 2,
+    "departmentName": "department1",
+    "parentDepartmentId": 1,
+    "departmentTypeId": 2,
+    "employeeDtoList": [
+      {
+        "id": 5,
+        "employeeInfo": "Chan Botham",
+        "positionId": 5,
+        "departmentId": 2,
+        "position": "developer"
+      },
+      {
+        "id": 19,
+        "employeeInfo": "Everett Aizik",
+        "positionId": 5,
+        "departmentId": 2,
+        "position": "developer"
+      },
+      {
+        "id": 39,
+        "employeeInfo": "Cherri Adrian",
+        "positionId": 3,
+        "departmentId": 2,
+        "position": "analyst"
+      },
+      {
+        "id": 67,
+        "employeeInfo": "Barron Doxey",
+        "positionId": 5,
+        "departmentId": 2,
+        "position": "developer"
+      },
+      {
+        "id": 68,
+        "employeeInfo": "Dusty Bubb",
+        "positionId": 1,
+        "departmentId": 2,
+        "position": "director"
+      }
+    ],
+    "departmentType": "department"
+  },
+  {
+    "id": 3,
+    "departmentName": "department2",
+    "parentDepartmentId": 1,
+    "departmentTypeId": 2,
+    "employeeDtoList": [
+      {
+        "id": 7,
+        "employeeInfo": "Jermaine McGarel",
+        "positionId": 2,
+        "departmentId": 3,
+        "position": "designer"
+      },
+      {
+        "id": 25,
+        "employeeInfo": "Amory Nordass",
+        "positionId": 5,
+        "departmentId": 3,
+        "position": "developer"
+      },
+      {
+        "id": 35,
+        "employeeInfo": "Gates Hydes",
+        "positionId": 3,
+        "departmentId": 3,
+        "position": "analyst"
+      },
+      {
+        "id": 38,
+        "employeeInfo": "Trixy Matanin",
+        "positionId": 1,
+        "departmentId": 3,
+        "position": "director"
+      },
+      {
+        "id": 45,
+        "employeeInfo": "Jessamine Poll",
+        "positionId": 4,
+        "departmentId": 3,
+        "position": "manager"
+      },
+      {
+        "id": 51,
+        "employeeInfo": "Enos Cowpertwait",
+        "positionId": 3,
+        "departmentId": 3,
+        "position": "analyst"
+      },
+      {
+        "id": 63,
+        "employeeInfo": "Opaline Wooster",
+        "positionId": 3,
+        "departmentId": 3,
+        "position": "analyst"
+      },
+      {
+        "id": 73,
+        "employeeInfo": "Decca Cicutto",
+        "positionId": 5,
+        "departmentId": 3,
+        "position": "developer"
+      }
+    ],
+    "departmentType": "department"
+  },
+  {
+    "id": 4,
+    "departmentName": "division1",
+    "parentDepartmentId": 2,
+    "departmentTypeId": 3,
+    "employeeDtoList": [
+      {
+        "id": 50,
+        "employeeInfo": "Amalita Dodle",
+        "positionId": 2,
+        "departmentId": 4,
+        "position": "designer"
+      },
+      {
+        "id": 56,
+        "employeeInfo": "Leo Gori",
+        "positionId": 3,
+        "departmentId": 4,
+        "position": "analyst"
+      },
+      {
+        "id": 70,
+        "employeeInfo": "Lindsay Bladesmith",
+        "positionId": 1,
+        "departmentId": 4,
+        "position": "director"
+      }
+    ],
+    "departmentType": "division"
+  },
+  {
+    "id": 5,
+    "departmentName": "division2",
+    "parentDepartmentId": 2,
+    "departmentTypeId": 3,
+    "employeeDtoList": [
+      {
+        "id": 23,
+        "employeeInfo": "Hamlin Tellesson",
+        "positionId": 4,
+        "departmentId": 5,
+        "position": "manager"
+      },
+      {
+        "id": 53,
+        "employeeInfo": "Patrice Juster",
+        "positionId": 1,
+        "departmentId": 5,
+        "position": "director"
+      },
+      {
+        "id": 57,
+        "employeeInfo": "Elwyn Fluger",
+        "positionId": 2,
+        "departmentId": 5,
+        "position": "designer"
+      }
+    ],
+    "departmentType": "division"
+  },
+  {
+    "id": 6,
+    "departmentName": "division3",
+    "parentDepartmentId": 3,
+    "departmentTypeId": 3,
+    "employeeDtoList": [
+      {
+        "id": 10,
+        "employeeInfo": "Pavlov Chilley",
+        "positionId": 1,
+        "departmentId": 6,
+        "position": "director"
+      },
+      {
+        "id": 13,
+        "employeeInfo": "Derron Georgel",
+        "positionId": 5,
+        "departmentId": 6,
+        "position": "developer"
+      },
+      {
+        "id": 28,
+        "employeeInfo": "Erastus Chadband",
+        "positionId": 4,
+        "departmentId": 6,
+        "position": "manager"
+      },
+      {
+        "id": 41,
+        "employeeInfo": "Robina Swinnard",
+        "positionId": 2,
+        "departmentId": 6,
+        "position": "designer"
+      }
+    ],
+    "departmentType": "division"
+  },
+  {
+    "id": 7,
+    "departmentName": "division4",
+    "parentDepartmentId": 3,
+    "departmentTypeId": 3,
+    "employeeDtoList": [
+      {
+        "id": 11,
+        "employeeInfo": "Cthrine Rulf",
+        "positionId": 5,
+        "departmentId": 7,
+        "position": "developer"
+      },
+      {
+        "id": 21,
+        "employeeInfo": "Merle McKelloch",
+        "positionId": 5,
+        "departmentId": 7,
+        "position": "developer"
+      },
+      {
+        "id": 37,
+        "employeeInfo": "Thibaut Pettiford",
+        "positionId": 2,
+        "departmentId": 7,
+        "position": "designer"
+      },
+      {
+        "id": 55,
+        "employeeInfo": "Ewan Bielefeld",
+        "positionId": 1,
+        "departmentId": 7,
+        "position": "director"
+      },
+      {
+        "id": 59,
+        "employeeInfo": "Gregory Ready",
+        "positionId": 3,
+        "departmentId": 7,
+        "position": "analyst"
+      }
+    ],
+    "departmentType": "division"
+  },
+  {
+    "id": 8,
+    "departmentName": "section1",
+    "parentDepartmentId": 4,
+    "departmentTypeId": 4,
+    "employeeDtoList": [
+      {
+        "id": 17,
+        "employeeInfo": "Aleda Mulliner",
+        "positionId": 2,
+        "departmentId": 8,
+        "position": "designer"
+      },
+      {
+        "id": 36,
+        "employeeInfo": "Noll MacGragh",
+        "positionId": 4,
+        "departmentId": 8,
+        "position": "manager"
+      },
+      {
+        "id": 52,
+        "employeeInfo": "Berta Batchelour",
+        "positionId": 1,
+        "departmentId": 8,
+        "position": "director"
+      },
+      {
+        "id": 58,
+        "employeeInfo": "Hildegarde Mirams",
+        "positionId": 4,
+        "departmentId": 8,
+        "position": "manager"
+      }
+    ],
+    "departmentType": "section"
+  },
+  {
+    "id": 9,
+    "departmentName": "section2",
+    "parentDepartmentId": 4,
+    "departmentTypeId": 4,
+    "employeeDtoList": [
+      {
+        "id": 2,
+        "employeeInfo": "Alexis Pidduck",
+        "positionId": 1,
+        "departmentId": 9,
+        "position": "director"
+      },
+      {
+        "id": 3,
+        "employeeInfo": "Ilse Yanyshev",
+        "positionId": 3,
+        "departmentId": 9,
+        "position": "analyst"
+      },
+      {
+        "id": 40,
+        "employeeInfo": "Mercy Warnock",
+        "positionId": 2,
+        "departmentId": 9,
+        "position": "designer"
+      },
+      {
+        "id": 61,
+        "employeeInfo": "Angelique Duchenne",
+        "positionId": 2,
+        "departmentId": 9,
+        "position": "designer"
+      }
+    ],
+    "departmentType": "section"
+  },
+  {
+    "id": 10,
+    "departmentName": "section3",
+    "parentDepartmentId": 5,
+    "departmentTypeId": 4,
+    "employeeDtoList": [
+      {
+        "id": 16,
+        "employeeInfo": "Rhonda Emms",
+        "positionId": 2,
+        "departmentId": 10,
+        "position": "designer"
+      },
+      {
+        "id": 32,
+        "employeeInfo": "Trev Stark",
+        "positionId": 4,
+        "departmentId": 10,
+        "position": "manager"
+      },
+      {
+        "id": 47,
+        "employeeInfo": "Danielle Pleming",
+        "positionId": 2,
+        "departmentId": 10,
+        "position": "designer"
+      },
+      {
+        "id": 69,
+        "employeeInfo": "Heinrick Panas",
+        "positionId": 1,
+        "departmentId": 10,
+        "position": "director"
+      },
+      {
+        "id": 71,
+        "employeeInfo": "Addie Wylam",
+        "positionId": 3,
+        "departmentId": 10,
+        "position": "analyst"
+      }
+    ],
+    "departmentType": "section"
+  },
+  {
+    "id": 11,
+    "departmentName": "section4",
+    "parentDepartmentId": 5,
+    "departmentTypeId": 4,
+    "employeeDtoList": [
+      {
+        "id": 1,
+        "employeeInfo": "Katlin Brunnstein",
+        "positionId": 2,
+        "departmentId": 11,
+        "position": "designer"
+      },
+      {
+        "id": 22,
+        "employeeInfo": "Alicia Vedntyev",
+        "positionId": 3,
+        "departmentId": 11,
+        "position": "analyst"
+      },
+      {
+        "id": 24,
+        "employeeInfo": "Joannes Bwy",
+        "positionId": 5,
+        "departmentId": 11,
+        "position": "developer"
+      },
+      {
+        "id": 26,
+        "employeeInfo": "Chlo Raddan",
+        "positionId": 4,
+        "departmentId": 11,
+        "position": "manager"
+      },
+      {
+        "id": 34,
+        "employeeInfo": "Garry MacLise",
+        "positionId": 1,
+        "departmentId": 11,
+        "position": "director"
+      },
+      {
+        "id": 48,
+        "employeeInfo": "Aigneis Spriggs",
+        "positionId": 5,
+        "departmentId": 11,
+        "position": "developer"
+      },
+      {
+        "id": 66,
+        "employeeInfo": "Cybill Burras",
+        "positionId": 2,
+        "departmentId": 11,
+        "position": "designer"
+      }
+    ],
+    "departmentType": "section"
+  },
+  {
+    "id": 12,
+    "departmentName": "section5",
+    "parentDepartmentId": 6,
+    "departmentTypeId": 4,
+    "employeeDtoList": [
+      {
+        "id": 33,
+        "employeeInfo": "Rowland Barson",
+        "positionId": 3,
+        "departmentId": 12,
+        "position": "analyst"
+      },
+      {
+        "id": 46,
+        "employeeInfo": "Dorthy Simononsky",
+        "positionId": 1,
+        "departmentId": 12,
+        "position": "director"
+      },
+      {
+        "id": 65,
+        "employeeInfo": "Woodie Jackling",
+        "positionId": 3,
+        "departmentId": 12,
+        "position": "analyst"
+      }
+    ],
+    "departmentType": "section"
+  },
+  {
+    "id": 13,
+    "departmentName": "section6",
+    "parentDepartmentId": 6,
+    "departmentTypeId": 4,
+    "employeeDtoList": [
+      {
+        "id": 9,
+        "employeeInfo": "Meta Ballingal",
+        "positionId": 5,
+        "departmentId": 13,
+        "position": "developer"
+      },
+      {
+        "id": 18,
+        "employeeInfo": "Madalyn Gwilym",
+        "positionId": 5,
+        "departmentId": 13,
+        "position": "developer"
+      },
+      {
+        "id": 29,
+        "employeeInfo": "Constance Eberst",
+        "positionId": 5,
+        "departmentId": 13,
+        "position": "developer"
+      },
+      {
+        "id": 60,
+        "employeeInfo": "Jeromy Tivenan",
+        "positionId": 1,
+        "departmentId": 13,
+        "position": "director"
+      },
+      {
+        "id": 74,
+        "employeeInfo": "Angelita Leeke",
+        "positionId": 3,
+        "departmentId": 13,
+        "position": "analyst"
+      }
+    ],
+    "departmentType": "section"
+  },
+  {
+    "id": 14,
+    "departmentName": "section7",
+    "parentDepartmentId": 7,
+    "departmentTypeId": 4,
+    "employeeDtoList": [
+      {
+        "id": 14,
+        "employeeInfo": "Ernest Benedite",
+        "positionId": 1,
+        "departmentId": 14,
+        "position": "director"
+      },
+      {
+        "id": 20,
+        "employeeInfo": "Dorette Sayers",
+        "positionId": 5,
+        "departmentId": 14,
+        "position": "developer"
+      },
+      {
+        "id": 27,
+        "employeeInfo": "Beatrix MacNish",
+        "positionId": 3,
+        "departmentId": 14,
+        "position": "analyst"
+      },
+      {
+        "id": 31,
+        "employeeInfo": "Bettine Gibard",
+        "positionId": 2,
+        "departmentId": 14,
+        "position": "designer"
+      },
+      {
+        "id": 54,
+        "employeeInfo": "Maynard Bolton",
+        "positionId": 2,
+        "departmentId": 14,
+        "position": "designer"
+      },
+      {
+        "id": 62,
+        "employeeInfo": "Arthur Munnis",
+        "positionId": 5,
+        "departmentId": 14,
+        "position": "developer"
+      },
+      {
+        "id": 64,
+        "employeeInfo": "Chas McNulty",
+        "positionId": 4,
+        "departmentId": 14,
+        "position": "manager"
+      },
+      {
+        "id": 75,
+        "employeeInfo": "Jabez Stanyan",
+        "positionId": 3,
+        "departmentId": 14,
+        "position": "analyst"
+      }
+    ],
+    "departmentType": "section"
+  },
+  {
+    "id": 15,
+    "departmentName": "section8",
+    "parentDepartmentId": 7,
+    "departmentTypeId": 4,
+    "employeeDtoList": [
+      {
+        "id": 6,
+        "employeeInfo": "Jeramey MacCaghan",
+        "positionId": 2,
+        "departmentId": 15,
+        "position": "designer"
+      },
+      {
+        "id": 8,
+        "employeeInfo": "Bryn Boller",
+        "positionId": 1,
+        "departmentId": 15,
+        "position": "director"
+      },
+      {
+        "id": 15,
+        "employeeInfo": "Desmund Tice",
+        "positionId": 5,
+        "departmentId": 15,
+        "position": "developer"
+      },
+      {
+        "id": 30,
+        "employeeInfo": "Franni Tims",
+        "positionId": 4,
+        "departmentId": 15,
+        "position": "manager"
+      },
+      {
+        "id": 42,
+        "employeeInfo": "Yurik Griswood",
+        "positionId": 5,
+        "departmentId": 15,
+        "position": "developer"
+      }
+    ],
+    "departmentType": "section"
+  }
+]
